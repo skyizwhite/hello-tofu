@@ -2,8 +2,28 @@ provider "aws" {
   region = "ap-northeast-1"
 }
 
+data "aws_ami" "ubuntu" {
+  most_recent = true
+  owners      = [var.ubuntu_owner]
+
+  filter {
+    name   = "name"
+    values = ["ubuntu/images/hvm-ssd/ubuntu-${var.ubuntu_version}-${var.ubuntu_release}-amd64-server-*"]
+  }
+
+  filter {
+    name   = "root-device-type"
+    values = ["ebs"]
+  }
+
+  filter {
+    name   = "virtualization-type"
+    values = ["hvm"]
+  }
+}
+
 resource "aws_launch_configuration" "example" {
-  image_id        = "ami-0a0b7b240264a48d7"
+  image_id        = data.aws_ami.ubuntu.id
   instance_type   = "t2.micro"
   security_groups = [aws_security_group.instance.id]
 

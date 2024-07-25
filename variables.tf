@@ -1,3 +1,21 @@
+variable "ubuntu_owner" {
+  description = "The owner of Ubuntu AMI"
+  type        = string
+  default     = "099720109477" # Canonical
+}
+
+variable "ubuntu_release" {
+  description = "The release of Ubuntu AMI"
+  type        = string
+  default     = "22.04"
+}
+
+variable "ubuntu_version" {
+  description = "The version of Ubuntu AMI"
+  type        = string
+  default     = "jammy"
+}
+
 variable "server_port" {
   description = "The port the server will use for HTTP requests"
   type        = number
